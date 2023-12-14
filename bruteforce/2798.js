@@ -5,14 +5,12 @@ input = input.split(" ").map(Number);
 
 function solution(N, M, input) {
   let answer = 0;
-  //let tmp = Array.from({ length: N });
 
   function dfs(cnt, pos, sum) {
     if (cnt === 3) {
       if (sum > answer && sum <= M) answer = sum;
     } else {
       for (let i = pos; i < N; i++) {
-        //tmp[cnt] = input[i];
         dfs(cnt + 1, i + 1, sum + input[i]);
       }
     }
@@ -23,3 +21,5 @@ function solution(N, M, input) {
 }
 
 solution(N, M, input);
+
+// M 최댓값이 100이고 카드 3장이 고정임으로 2중 for문도 가능할듯 
