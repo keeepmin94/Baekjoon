@@ -6,27 +6,22 @@ const [N, M] = require("fs")
   .split(" ")
   .map(Number);
 
-const arr = Array(N + 1).fill(0);
-const tmp = Array(M).fill(0); // 순열 임시 배열
+const tmp = Array(M).fill(0);
 const result = [];
 
-function backTrack(cnt) {
+function backTrack(cnt, idx) {
   if (cnt === M) {
     result.push(tmp.slice()); // 깊은복사
     return;
   }
 
-  for (let i = 1; i <= N; i++) {
-    if (arr[i] === 0) {
-      arr[i] = 1;
-      tmp[cnt] = i;
-      backTrack(cnt + 1);
-      arr[i] = 0;
-    }
+  for (let i = idx; i <= N; i++) {
+    tmp[cnt] = i;
+    backTrack(cnt + 1, i + 1);
   }
 }
 
-backTrack(0);
+backTrack(0, 1);
 
 let str = "";
 result.forEach((arr_tmp) => {
@@ -35,4 +30,4 @@ result.forEach((arr_tmp) => {
 
 console.log(str);
 
-//순열
+//조합
