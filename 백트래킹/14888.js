@@ -1,11 +1,11 @@
 const path = process.platform === "linux" ? "/dev/stdin" : "input.txt";
 let input = require("fs").readFileSync(path).toString().trim().split("\n");
-const [N_, inputs, calcul] = input.map((n) => n.split(" ").map(Number));
+const [N_, inputs, cal] = input.map((n) => n.split(" ").map(Number));
 const N = N_[0];
 let min_ = Number.MAX_SAFE_INTEGER;
 let max_ = Number.MIN_SAFE_INTEGER;
 
-function dfs(sum, cnt, op, cal) {
+function dfs(sum, cnt, op) {
   switch (op) {
     case 0:
       sum += inputs[cnt];
@@ -30,19 +30,18 @@ function dfs(sum, cnt, op, cal) {
 
   for (let i = 0; i < 4; i++) {
     if (cal[i] > 0) {
-      cal[i] = cal[i] - 1;
-      dfs(sum, cnt + 1, i, cal);
-      cal[i] = cal[i] + 1;
+      cal[i]--;
+      dfs(sum, cnt + 1, i);
+      cal[i]++;
     }
   }
 }
 
 for (let i = 0; i < 4; i++) {
-  let cal_ = calcul.slice();
-  if (cal_[i] > 0) {
-    cal_[i] = cal_[i] - 1;
-    dfs(inputs[0], 1, i, cal_);
-    cal_[i] = cal_[i] + 1;
+  if (cal[i] > 0) {
+    cal[i]--;
+    dfs(inputs[0], 1, i);
+    cal[i]++;
   }
 }
 
