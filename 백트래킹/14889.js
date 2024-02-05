@@ -18,7 +18,7 @@ function dfs(start = [], idx = 1) {
     return;
   }
 
-  for (let i = idx; i <= N; i++) {
+  for (let i = idx; i <= N; i++) { // 순열로 구할시 시간초과, 조합으로 구해야함 
     if (start.indexOf(i) === -1) {
       start.push(i);
       dfs(start, i + 1);
